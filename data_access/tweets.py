@@ -10,11 +10,12 @@ def get_row_json(row):
     return {
             'company':row[csv_dict['company']],
             'created_at':row[csv_dict['created_at']],
-            'text':row[csv_dict['text']],
-            'hashtags':row[csv_dict['hashtags']],
+            'text':row[csv_dict['text']].decode('utf-8', 'replace'),
+            'hashtags':row[csv_dict['hashtags']].decode('utf-8','replace'),
             'symbols':row[csv_dict['symbols']],
             'urls':row[csv_dict['urls']],
-            'mentions':row[csv_dict['mentions']]
+            'mentions':row[csv_dict['mentions']].decode('utf-8', 'replace')
+
             }
 
 def store_data(csv_path):
@@ -22,4 +23,7 @@ def store_data(csv_path):
     csvfile.readline()
     reader = csv.reader(csvfile, delimiter=',')
     for row in reader:
-        print get_row_json(row)
+        #try:
+            db.tweets.insert(get_row_json(row))
+        #except Exception:
+            #print 'ignored'
