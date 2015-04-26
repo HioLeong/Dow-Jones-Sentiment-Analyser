@@ -5,7 +5,7 @@ class DowJonesLearner(object):
     __metaclass__ = ABCMeta
 
     def get_tweets_feature_set(self, tweets):
-        return getBigrams(tweets)
+        return zip(getBigrams(tweets),getEmoticons(tweets))
 
     @abstractmethod
     def train(self, training_set):
