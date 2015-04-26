@@ -1,10 +1,11 @@
 from abc import ABCMeta, abstractmethod
+from featureextractor import *
 
 class DowJonesLearner(object):
     __metaclass__ = ABCMeta
 
     def get_tweets_feature_set(self, tweets):
-        pass
+        return getBigrams(tweets)
 
     @abstractmethod
     def train(self, training_set):
