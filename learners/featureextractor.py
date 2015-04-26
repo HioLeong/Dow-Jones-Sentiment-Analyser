@@ -2,8 +2,9 @@ from sklearn.feature_extraction import FeatureHasher
 from sklearn.feature_extraction.text import CountVectorizer
 import re
 
-corpus = ["This is going to :) ", "This is an array :(", "of all the tweets :)"];
+corpus = ["This is going to :) ", "This is an array :(", "of all the tweets"];
 bigram_vectorizer = CountVectorizer(ngram_range=(2, 2), token_pattern=r'\b\w+\b', min_df=1)
+emojiset = set([":)",":-)","=)",":(",":-(","=(",":D"])
 
 def getBigrams( corpus ):
     analyze = bigram_vectorizer.build_analyzer()
@@ -20,15 +21,15 @@ def getVectorizedBigrams( corpus ):
 
 def getEmoticons( corpus ):
     out = []
-    for s in corpus:
-        found = re.search('[0-9A-Za-z\&\-\.\/()=:;]+', s).group(1)
-        if found:
-            out.append(found)
-        else:
+    for tweet in corpus :
+        found = False
+        for emoji in emojiset:
+            if emoji in tweet:
+                out.append(emoji)
+                found = True
+        if not found:
             out.append("")
     return out
 
 if __name__ == "__main__":
     print(getEmoticons(corpus))
-    print(getBigrams(corpus))
-    print(getVectorizedBigrams(corpus))
