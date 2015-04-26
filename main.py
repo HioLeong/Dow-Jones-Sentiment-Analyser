@@ -1,8 +1,9 @@
+import data_access.dow_jones as dj
+import data_access.tweets as ts
+
 from learners.linear_regression import LinearRegressionLearner
 from learners.logistic_regression import LogisticRegressionLearner
 from learners.naive_bayes import NaiveBayesLearner
-
-from data_access.tweets import *
 
 if __name__ == '__main__':
     '''
@@ -12,4 +13,7 @@ if __name__ == '__main__':
     lr.train()
     '''
 
-    store_data('data/tweets.csv')
+    ts.store_data('data/tweets.csv')
+    #dj.store_data('data/ChevronCVX.csv', 'chevron')
+    #dj.store_data('data/ExxonXOM.csv', 'exxon')
+    #dj.store_data('data/ColaKO.csv', 'coca cola')
