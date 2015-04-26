@@ -29,7 +29,8 @@ def getEmoticons( corpus ):
                 found = True
         if not found:
             out.append("")
-    return out
+    hasher = FeatureHasher(input_type='string', non_negative=True)
+    return hasher.transform(out)
 
 if __name__ == "__main__":
     print(getEmoticons(corpus))
