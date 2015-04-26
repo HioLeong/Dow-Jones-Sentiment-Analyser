@@ -7,6 +7,12 @@ class DowJonesLearner(object):
     def get_tweets_feature_set(self, tweets):
         return zip(getBigrams(tweets),getEmoticons(tweets))
 
+    def cross_validate():
+        pass
+
+    def accuracy():
+        pass
+
     @abstractmethod
     def train(self, training_set):
         pass
