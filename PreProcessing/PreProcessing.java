@@ -35,7 +35,7 @@ public class PreProcessing {
 
 			br.close();
 
-			System.out.println("DONE" + filename);
+			System.out.println("DONE: " + filename);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -96,6 +96,8 @@ public class PreProcessing {
 					new FileWriter(outputFile, true), ',');
 
 			if (!alreadyExists) {
+				csvOutput.write("company");
+				csvOutput.write("created_at");
 				csvOutput.write("text");
 				csvOutput.write("hashtags");
 				csvOutput.write("symbols");
@@ -103,8 +105,19 @@ public class PreProcessing {
 				csvOutput.write("mentions");
 				csvOutput.endRecord();
 			}
-
-			csvOutput.write(json.get("text").toString());
+			
+			String tweetBody = json.get("text").toString();
+			if(tweetBody.toLowerCase().contains("coca cola") || tweetBody.toLowerCase().contains("coca-cola")) {
+				csvOutput.write("coca cola");
+			} else if(tweetBody.toLowerCase().contains("chevron")) {
+				csvOutput.write("chevron");
+			} else if(tweetBody.toLowerCase().contains("exxon")) {
+				csvOutput.write("exxon");
+			} else {
+				return;
+			}
+			csvOutput.write(json.get("created_at").toString());
+			csvOutput.write(tweetBody);
 			String entitiesString = json.get("entities").toString();
 			JSONObject entities = (JSONObject) new JSONParser().parse(entitiesString);
 			csvOutput.write(entities.get("hashtags").toString());
