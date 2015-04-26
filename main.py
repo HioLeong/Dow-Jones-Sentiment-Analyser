@@ -14,6 +14,6 @@ if __name__ == '__main__':
     '''
 
     ts.store_data('data/tweets.csv')
-    #dj.store_data('data/ChevronCVX.csv', 'chevron')
-    #dj.store_data('data/ExxonXOM.csv', 'exxon')
-    #dj.store_data('data/ColaKO.csv', 'coca cola')
+    dj.store_data('data/ChevronCVX.csv', 'chevron')
+    dj.store_data('data/ExxonXOM.csv', 'exxon')
+    dj.store_data('data/ColaKO.csv', 'coca cola')
