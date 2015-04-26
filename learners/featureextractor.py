@@ -10,7 +10,7 @@ def getBigrams( corpus ):
     out = []
     for s in corpus:
         out.append(analyze(s))
-    hasher = FeatureHasher(input_type='string')
+    hasher = FeatureHasher(input_type='string', non_negative=True)
     return hasher.transform(out)
     #return out
 

@@ -16,9 +16,5 @@ class LinearRegressionLearner(DowJonesLearner):
         self.learner.predict(tweet_features)
 
     def classify(self, tweet):
+        return tweet
 
-if __name__ == '__main__':
-    tweets = ['hello, is it me', 'are looking for']
-    labelled_tweets = [tweets, [0,1]]
-    lr = LinearRegressionLearner(labelled_tweets)
-    lr.train()
