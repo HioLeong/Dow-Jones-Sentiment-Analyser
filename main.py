@@ -6,6 +6,7 @@ from learners.logistic_regression import LogisticRegressionLearner
 from learners.naive_bayes import NaiveBayesLearner
 
 from sklearn.metrics import confusion_matrix
+from sklearn.metrics import roc_curve
 
 from pymongo import MongoClient
 from random import shuffle
@@ -30,6 +31,11 @@ def get_label_counts(target):
     print target.count(0)
     print target.count(-1)
 
+def get_data():
+    ts.store_data('data/tweets.csv')
+    dj.store_data('data/ChevronCVX.csv', 'chevron')
+    dj.store_data('data/ExxonXOM.csv', 'exxon')
+    dj.store_data('data/ColaKO.csv', 'coca cola')
 
 if __name__ == '__main__':
     #tweets = ['hello, is it me', 'are looking for']
@@ -43,17 +49,13 @@ if __name__ == '__main__':
     labelled_tweets = [tweet_texts, target]
 
     print 'learning now'
-    training_tweets = tweet_texts[:2100]
-    training_target = target[:2100]
-    learner = LinearRegressionLearner([training_tweets[210:], training_target[210:]])
+    training_tweets = tweet_texts[:1000]
+    training_target = target[:1000]
+    learner = NaiveBayesLearner([training_tweets, training_target])
     learner.train()
+    print learner.cross_validate()
+    #learner.confusion_matrix()
 
     l = learner.classify(training_tweets[:210])
-    print confusion_matrix(l, training_target[:210])
+    #print confusion_matrix(l, training_target[:210])
 
-    '''
-    ts.store_data('data/tweets.csv')
-    dj.store_data('data/ChevronCVX.csv', 'chevron')
-    dj.store_data('data/ExxonXOM.csv', 'exxon')
-    dj.store_data('data/ColaKO.csv', 'coca cola')
-    '''

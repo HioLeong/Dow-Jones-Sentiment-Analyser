@@ -1,6 +1,7 @@
 from abstract_learner import DowJonesLearner
 
 from sklearn import linear_model
+from sklearn.metrics import roc_curve
 from featureextractor import *
 
 class LinearRegressionLearner(DowJonesLearner):
@@ -13,16 +14,16 @@ class LinearRegressionLearner(DowJonesLearner):
         self.learner.fit(features, self.labelled_tweets[1])
 
     def results_threshold(self,label):
-        print label
-        if label < -0.3:
+        if label < -0.5:
             return -1
-        elif label > 0.3:
+        elif label > 0.5:
             return 1
         else: 
             return 0
 
     def classify_tweet(self, tweet_features):
-        return map(self.results_threshold, self.learner.predict(tweet_features))
+        scores = self.learner.predict(tweet_features)
+        return map(self.results_threshold, self.labelled_tweets[1])
 
     def classify(self, tweets):
         features = self.get_tweets_feature_set(tweets)

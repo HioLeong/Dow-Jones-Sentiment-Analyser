@@ -13,7 +13,10 @@ class NaiveBayesLearner(DowJonesLearner):
         self.learner.fit(features, self.labelled_tweets[1])
 
     def classify_tweet(self, tweet_features):
-        self.learner.predict(tweet_features)
+        scores = self.learner.predict(tweet_features)
+        print scores
+        #return map(self.results_threshold, self.labelled_tweets[1])
 
-    def classify(self, tweet):
-        return tweet
+    def classify(self, tweets):
+        features = self.get_tweets_feature_set(tweets)
+        return self.classify_tweet(features)

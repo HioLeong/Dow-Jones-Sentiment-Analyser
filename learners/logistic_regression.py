@@ -12,9 +12,18 @@ class LogisticRegressionLearner(DowJonesLearner):
         features = self.get_tweets_feature_set(self.labelled_tweets[0])
         self.learner.fit(features, self.labelled_tweets[1])
 
+    def results_threshold(self,label):
+        if label < -0.5:
+            return -1
+        elif label > 0.5:
+            return 1
+        else: 
+            return 0
+
     def classify_tweet(self, tweet_features):
-        self.learner.predict(tweet_features)
+        scores = self.learner.predict(tweet_features)
+        return map(self.results_threshold, self.labelled_tweets[1])
 
-    def classify(self, tweet):
-        return tweet
-
+    def classify(self, tweets):
+        features = self.get_tweets_feature_set(tweets)
+        return self.classify_tweet(features)
